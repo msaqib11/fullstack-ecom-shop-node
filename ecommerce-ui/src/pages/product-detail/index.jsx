@@ -53,12 +53,12 @@ const ProductDetail = () => {
     )
 }
 
-function FilterTitle({ color }) {
+export function FilterTitle({ color }) {
     return (
         <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white">
             <span
                 style={{ backgroundColor: color }}
-                className="w-8 h-8 rounded-full inline-block cursor-pointer"
+                className="w-6 h-6 rounded-full inline-block cursor-pointer"
             ></span>
         </span>
     )

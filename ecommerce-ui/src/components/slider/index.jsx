@@ -8,10 +8,10 @@ const Slider = () => {
     const handleClick = (direction) => {
         console.log(slideIndex);
         if (direction === "left") {
-            console.log("left");
+           
             setSlideIndex(slideIndex > 0 ? slideIndex - 1 : sliderItems.length - 1);
         } else {
-            console.log("right");
+           
             setSlideIndex(slideIndex < sliderItems.length - 1 ? slideIndex + 1 : 0);
         }
     };
@@ -34,7 +34,7 @@ const Slider = () => {
                 }}
             >
                 {sliderItems.map((item) => {
-                    console.log(item.bg)
+                    
                    return(
                     <div
                     className={`h-full w-screen flex-shrink-0`}

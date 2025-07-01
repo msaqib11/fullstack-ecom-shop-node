@@ -17,7 +17,7 @@ router.get("/get-product/:id",productController.getProduct)
 
 
 //get all products
-router.get("/get-all-products",productController.getAllProducts)
+router.get("/",productController.getAllProducts)
 
 
 export default router;

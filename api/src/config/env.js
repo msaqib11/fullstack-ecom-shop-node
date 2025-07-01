@@ -5,4 +5,6 @@ const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
-export { MONGODB_URI, PORT, NODE_ENV, JWT_SECRET, JWT_EXPIRES_IN };
+const CORS_ORIGIN = process.env.CORS_ORIGIN;
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+export { MONGODB_URI, PORT, NODE_ENV, JWT_SECRET, JWT_EXPIRES_IN,CORS_ORIGIN,STRIPE_SECRET_KEY };

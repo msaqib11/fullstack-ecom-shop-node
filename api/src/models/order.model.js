@@ -2,9 +2,16 @@ import mongoose from "mongoose";
 
 const OrderSchema = new mongoose.Schema({
     userId: {
-        type:mongoose.Schema.Types.ObjectId,
+        type:mongoose.Schema.Types.Mixed,
         ref: "User",
-        required: true
+        default : "guest"
+    },
+    paymentId : {
+        type: String,
+        required: true,
+    },
+    paymentType : {
+        type: String,
     },
     products: [
         {
@@ -16,6 +23,12 @@ const OrderSchema = new mongoose.Schema({
             quantity: {
                 type: Number,
                 default: 1
+            },
+            color : {
+                type: String,
+            },
+            size: {
+                type: String,
             }
         },
 

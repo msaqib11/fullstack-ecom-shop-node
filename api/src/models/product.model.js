@@ -15,11 +15,11 @@ const productSchema = new Schema({
         required: true
     },
     size: {
-        type: String,
+        type: Array,
 
     },
     color: {
-        type: String,
+        type: Array,
 
     },
     images: {
@@ -28,6 +28,10 @@ const productSchema = new Schema({
     },
     category: {
         type: Array,
+    },
+    isStock:{
+        type: Boolean,
+        default: true
     }
 }, { timestamps: true })
 export default mongoose.model("Product", productSchema)

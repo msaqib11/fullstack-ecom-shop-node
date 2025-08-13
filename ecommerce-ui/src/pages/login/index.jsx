@@ -3,24 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginStart, loginSuccess, loginFailure } from "../../store/userSlice.js";
 import axiosInstance from "../../api/axios.js";
 const Login = () => {
-  const [userName,setUserName] = useState("")
-  const [password,setPassword] = useState("")
-  const {isFetching,error} = useSelector((state)=>state.user)
+  const [userName, setUserName] = useState("")
+  const [password, setPassword] = useState("")
+  const { isFetching, error } = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
-  async function handleSubmit(e){
+  async function handleSubmit(e) {
     e.preventDefault()
     dispatch(loginStart())
     try {
-      const res = await axiosInstance.post("/auth/login",{
-        username : userName,
-        password : password
+      const res = await axiosInstance.post("/auth/login", {
+        username: userName,
+        password: password
       })
       dispatch(loginSuccess(res.data))
     } catch (error) {
       dispatch(loginFailure(error.response.data.message))
     }
-    
+
 
   }
   return (
@@ -30,14 +30,14 @@ const Login = () => {
         <form className="flex flex-col gap-y-4">
           <input
             type="text"
-            onChange={(e)=>setUserName(e.target.value)}
+            onChange={(e) => setUserName(e.target.value)}
             placeholder="Username or Email"
             className="px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
           <input
             type="password"
             placeholder="Password"
-            onChange={(e)=>setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             className="px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
           {

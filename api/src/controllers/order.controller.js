@@ -51,9 +51,14 @@ export const monthlyIncome = asyncHandler(async (req, res, next) => {
             }
         },
         {
-            $group : {
-                _id :"$month",
-                total: {$sum : "$sales"}
+            $group: {
+                _id: "$month",
+                total: { $sum: "$sales" }
+            }
+        }, 
+        {
+            $sort: {
+                _id: -1
             }
         }
     ])

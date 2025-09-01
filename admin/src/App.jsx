@@ -15,6 +15,8 @@ import store, { persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import AdminRoutes from './routes/adminRoutes';
 import ListProducts from './pages/products/ListProducts';
+import Product from './pages/products/Product';
+import AddProduct from './pages/products/AddProduct';
 
 function App() {
 
@@ -36,6 +38,8 @@ function App() {
         }>
           <Route index element={<Dashboard />} />
           <Route path="products" element={<ListProducts/>}/>
+          <Route path='product/:id' element={<Product/>}/>
+          <Route path='product/add' element={<AddProduct/>}/>
         </Route>
         <Route path="login" element={<Login />} />
       </Routes>

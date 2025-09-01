@@ -10,4 +10,11 @@ router.post("/create-order",orderController.createOrder)
 router.get("/monthly-income",verifTokenAndAuthorization,orderController.monthlyIncome)
 
 
+//get order
+
+router.get("/:id",verifTokenAndAuthorization,orderController.getOrder)
+
+//get all orders
+router.get("/",verifTokenAndAuthorization,orderController.getAllOrders)
+
 export default router;

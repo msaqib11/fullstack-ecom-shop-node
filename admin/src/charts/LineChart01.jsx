@@ -12,12 +12,12 @@ import { formatValue } from '../utils/Utils';
 
 Chart.register(LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip);
 
+
 function LineChart01({
-  data,
+data,
   width,
   height
 }) {
-
   const [chart, setChart] = useState(null)
   const canvas = useRef(null);
   const { currentTheme } = useThemeProvider();
@@ -26,10 +26,24 @@ function LineChart01({
 
   useEffect(() => {
     const ctx = canvas.current;
+
+     // Create custom data for the blue line
+    const customData = [540, 466, 540, 466, 385, 432, 334, 334, 289, 289, 200, 289, 222, 289, 289, 403, 554, 304, 289, 270, 134, 270, 829, 344, 388, 364]; // Replace with your custom data
+    
+    const filteredData = {
+      ...data,
+      datasets: [{
+        ...data.datasets[0],
+        data: customData // Replace with your custom data
+      }]
+    };
+
+console.log(filteredData,"filteredData")
+
     // eslint-disable-next-line no-unused-vars
     const newChart = new Chart(ctx, {
       type: 'line',
-      data: data,
+      data: filteredData,
       options: {
         layout: {
           padding: 20,

@@ -1,13 +1,21 @@
 import React, { useEffect } from 'react';
 import { userRequest } from '../../requestMethods';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductsStart, fetchProductsSuccess } from '../../redux/productSlice';
+import { deleteProductStart, deleteProductSucess, fetchProductsStart, fetchProductsSuccess } from '../../redux/productSlice';
 
 
 
 const ListProducts = () => {
     const dispatch = useDispatch()
     const products = useSelector(state => state.product.products)
+    
+    function handleDeleteProduct(id){
+        return async () => {
+            dispatch(deleteProductStart())
+            dispatch(deleteProductSucess(id))
+        }
+    }
+    
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -21,6 +29,9 @@ const ListProducts = () => {
         }
         fetchProducts();
     }, [])
+
+
+
     return (
         <div className="p-6 bg-white rounded-lg shadow-md m-8" >
             <div className='flex justify-between items-center mb-4'>
@@ -56,8 +67,10 @@ const ListProducts = () => {
                                 <td className="px-4 py-2">{product.isStock ? 'In Stock' : 'Out of Stock'}</td>
                                
                                 <td className="px-4 py-2">
-                                    <button className="text-blue-600 hover:underline mr-2">Edit</button>
-                                    <button className="text-red-600 hover:underline">Delete</button>
+                                    <a href={`/product/${product._id}`} className="text-blue-600 hover:underline mr-2">Edit</a>
+                                    <button className="text-red-600 hover:underline"
+                                    onClick={handleDeleteProduct(product._id)}
+                                    >Delete</button>
                                 </td>
                             </tr>
                         ))}

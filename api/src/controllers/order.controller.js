@@ -1,6 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js"
 import { Order } from "../models/index.js"
 import { errorType } from "../middlewares/errorHandler.middleware.js";
+import mongoose from "mongoose";
 
 
 export const createOrder = asyncHandler(async (req, res, next) => {
@@ -32,35 +33,42 @@ export const getAllOrders = asyncHandler(async (req, res, next) => {
     res.status(200).json(allOrders);
 })
 
+
 export const monthlyIncome = asyncHandler(async (req, res, next) => {
-    const currentMonth = new Date();
-    const lastMonth = new Date(currentMonth.setMonth(currentMonth.getMonth() - 1));
-    const monthBeforeLastMonth = new Date(lastMonth.setMonth(lastMonth.getMonth() - 1));
-    const monthlyIncome = await Order.aggregate([
-        {
-            $match: {
-                createdAt: {
-                    $gte: monthBeforeLastMonth
-                }
-            }
-        },
-        {
-            $project: {
-                month: { $month: "$createdAt" },
-                sales: "$amount"
-            }
-        },
-        {
-            $group: {
-                _id: "$month",
-                total: { $sum: "$sales" }
-            }
-        }, 
-        {
-            $sort: {
-                _id: -1
-            }
-        }
-    ])
-    res.status(200).json(monthlyIncome);
-})
+  const productId = req.query.pid;
+  const currentDate = new Date();
+
+  const lastMonth = new Date(currentDate.setMonth(currentDate.getMonth() - 1));
+  const monthBeforeLastMonth = new Date(
+    new Date().setMonth(lastMonth.getMonth() - 1)
+  );
+
+  const match = {
+    createdAt: { $gte: monthBeforeLastMonth },
+  };
+
+  if (productId) {
+    match["products"] = {
+      $elemMatch: { productId: new mongoose.Types.ObjectId(productId) }, // ensure type match
+    };
+  }
+
+  const monthlyIncome = await Order.aggregate([
+    { $match: match },
+    {
+      $project: {
+        month: { $month: "$createdAt" },
+        sales: "$amount",
+      },
+    },
+    {
+      $group: {
+        _id: "$month",
+        total: { $sum: "$sales" },
+      },
+    },
+    { $sort: { _id: -1 } },
+  ]);
+
+  res.status(200).json(monthlyIncome);
+});

@@ -7,7 +7,7 @@ import { webhookController } from './controllers/index.js';
 import bodyparser from 'body-parser';
 const app = express();
 app.use(cors({
-    origin : ["http://localhost:5174"]
+    origin : ["http://localhost:5174","http://localhostt:5173"]
 }))
 
 app.post("/webhooks",bodyparser.raw({type:"application/json"}),webhookController.stripeWebHook)
